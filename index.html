@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>Insert Update and Delete records from MySQL with Vue.js</title>
+		<title>회원정보관리 from MySQL with Vue.js</title>
 		<script src="vue.js"></script>
 		<script src='axios-master/dist/axios.min.js'></script>
 
@@ -10,25 +10,22 @@
 				width: 100%;
 			}
 		</style>
+		 <script>
+			 function insertGo() {
+			  location.href='http://localhost/vuesql/insert.html';
+			 }
+		 </script>
 	</head>
 	<body>
 	
 		<div id='myapp'>
-			
-			<table border='1' width='80%' style='border-collapse: collapse;'>
+			<a href="javascript:insertGo()">회원등록</a>
+			<table border='1' width='70%' style='border-collapse: collapse;'>
 				<tr>
 					<th>Username</th>
 					<th>Name</th>
 					<th>Email</th>
 					<th></th>
-				</tr>
-
-				<!-- Add -->
-				<tr>
-					<td><input type='text' v-model='username'></td>
-					<td><input type='text' v-model='name'></td>
-					<td><input type='text' v-model='email'></td>
-					<td><input type='button' value='Add' @click='addRecord();'></td>
 				</tr>
 
 				<!-- Update/Delete -->
