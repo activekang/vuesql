@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+	<head>
+		<title>회원등록 from MySQL with Vue.js</title>
+		<script src="vue.js"></script>
+		<script src='axios-master/dist/axios.min.js'></script>
+
+		<style>
+		    table {border-collapse:collapse;}
+			input[type=text]{
+				width: 98%;
+			}
+			input[type=button]{
+				width: 100%;
+			}
+		</style>
+		 <script>
+			 function mainLink() {
+			  location.href='http://localhost/vuesql/index.html';
+			 }
+		 </script>
+	</head>
+	<body>
+	
+		<div id='myapp'>
+			<h2>회원등록</h2>
+			<table border='1' width='50%' style='border-collapse: collapse;'>
+				<!-- Add -->
+				<tr><th>Username</th><td><input type='text' v-model='username'></td></tr>
+				<tr><th>Name</th><td><input type='text' v-model='name'></td></tr>
+				<tr><th>Email</th><td><input type='text' v-model='email'></td></tr>
+				<tr><td  colspan=2>
+				<input type='button' value='Add' @click='addRecord();'></td></tr>
+			</table>
+			<a href="javascript:mainLink()">회원목록보기</a>
+		</div>
+		<!-- Script -->
+		<script>
+			var app = new Vue({
+				el: '#myapp',
+				data: {
+					users: "",
+					userid: 0,
+					username: "",
+					name: "",
+					email: ""
+				},
+				methods: {
+					allRecords: function(){
+						axios.post('ajaxfile.php', {
+						    request: 1
+						})
+						.then(function (response) {
+							app.users = response.data;
+						})
+						.catch(function (error) {
+						    console.log(error);
+						});
+						
+					},
+					addRecord: function(){
+
+						if(this.username != '' && this.name != '' && this.email != ''){
+							axios.post('ajaxfile.php', {
+							    request: 2,
+							    username: this.username,
+							    name: this.name,
+							    email: this.email
+							})
+							.then(function (response) {
+
+								// Fetch records
+							    app.allRecords();
+
+							    // Empty values
+							    app.username = '';
+							    app.name = '';
+							    app.email = '';
+
+							    alert(response.data);
+								
+                            })
+							.catch(function (error) {
+							    console.log(error);
+							});
+						}else{
+							alert('Fill all fields.');
+						}
+									
+					}
+			    },
+				created: function(){
+					this.allRecords();
+				}
+			})
+		</script>
+	</body>
+</html>
